@@ -4,8 +4,10 @@ pessoa:
   p003 : "Thyago"
 
 camera:
-  flir: c001
+  flir: "c001"
+  vue: "c002"
+  canon: "c003"
 paths:
-  flir : "E://flir"
-  vue : "E://vue"
-  canon : "E:/canon"
+  flir: 'E:/flir/reconhecimento'
+  vue: 'E:/vue/reconhecimento'
+  canon: 'E:/canon/reconhecimento'
