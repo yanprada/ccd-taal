@@ -1,0 +1,11 @@
+pessoa:
+  p001 : "Isabela"
+  p002 : "Nathalia"
+  p003 : "Thyago"
+
+camera:
+  flir: c001
+paths:
+  flir : "E://flir"
+  vue : "E://vue"
+  canon : "E:/canon"
