@@ -44,6 +44,8 @@ def rename_canon_files(files_dict):
         os.path.join(os.path.dirname(file_canon), os.path.basename(file_reference))
         for file_reference, file_canon in zip(files_dict["flir"], files_dict["canon"])
     ]
+    import ipdb
+    ipdb.set_trace()
     for old_name, new_name in zip(files_dict["canon"], files_dict["canon_new"]):
         os.rename(old_name, new_name)
     files_dict["canon"] = files_dict["canon_new"]
