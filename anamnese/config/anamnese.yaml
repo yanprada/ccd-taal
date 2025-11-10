@@ -1,1 +1,2 @@
-sentence :  "../data/anamnese_sentencas.xlsx"
+sentence :  "anamnese/data/anamnese_sentencas.xlsx"
+root_folder :  "E:/anamnese"

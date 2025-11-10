@@ -6,8 +6,11 @@ pessoa:
 camera:
   flir: "c001"
   vue: "c002"
-  canon: "c003"
+  canon_front: "c003"
+  canon_side: "c004"
+  
 paths:
   flir: 'E:/flir/reconhecimento'
   vue: 'E:/vue/reconhecimento'
-  canon: 'E:/canon/reconhecimento'
+  canon_front: 'E:/canon_front/reconhecimento'
+  canon_side: 'E:/canon_side/reconhecimento'
