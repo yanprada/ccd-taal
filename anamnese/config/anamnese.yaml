@@ -1,2 +1,3 @@
 sentence :  "anamnese/data/anamnese_sentencas.xlsx"
 root_folder :  "E:/anamnese"
+root_folder_errors :  "E:/anamnese_errors"
