@@ -55,7 +55,9 @@ def rename_canon_files(files_dict, camera_name):
     ):
         if old_name != new_name:
             os.rename(old_name, new_name)
-            add_logs(old_name, new_name, log_file="anamnese/logs/rename_log_canon.txt")
+            add_logs_rename(
+                old_name, new_name, log_file="anamnese/logs/rename_log_canon.txt"
+            )
 
     files_dict[f"canon_{camera_name}"] = files_dict[f"canon_{camera_name}_new"]
     del files_dict[f"canon_{camera_name}_new"]
@@ -108,12 +110,36 @@ def get_select_files_dataframe(files):
     return files_df
 
 
-def add_logs(old_file_name, new_file_name, log_file="anamnese/logs/rename_log.txt"):
+def add_logs_rename(
+    old_file_name, new_file_name, log_file="anamnese/logs/rename_log.txt"
+):
     """Append rename actions to a log file."""
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
     date = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(log_file, "a") as log:
         log.write(f"{date};{old_file_name};{new_file_name}\n")
+
+
+def add_logs_number_of_files(
+    df_files, config_anamnese, log_file="anamnese/logs/number_files_log.txt"
+):
+    num_files_with_errors = len(df_files[~df_files.is_selected])
+    num_files_without_errors = len(df_files[df_files.is_selected])
+    num_files_already_processed_without_errors = (
+        len(list(Path(config_anamnese["root_folder"]).rglob("*.mp4")))
+        if Path(config_anamnese["root_folder"]).exists()
+        else 0
+    ) / 4
+    num_files_already_processed_with_errors = (
+        len(list(Path(config_anamnese["root_folder_errors"]).rglob("*.mp4")))
+        if Path(config_anamnese["root_folder_errors"]).exists()
+        else 0
+    ) / 4
+    date = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(log_file, "a") as log:
+        log.write(
+            f"{date};{num_files_without_errors};{num_files_with_errors};{int(num_files_already_processed_without_errors)};{int(num_files_already_processed_with_errors)}\n"
+        )
 
 
 def rename_files_to_standard(files_dict, config_anamnese, config_general):
@@ -122,10 +148,8 @@ def rename_files_to_standard(files_dict, config_anamnese, config_general):
     for camera, files in tqdm(files_dict.items()):
         camera_id = config_general["camera"][camera]
         df_files = get_select_files_dataframe(files)
-        num_files_with_errors = len(df_files[~df_files.is_selected])
-        num_files_without_errors = len(df_files[df_files.is_selected])
-        num_files_already_processed_without_errors = 0
-        # TODO continuar a logica para pegar o numero de arquivos
+        add_logs_number_of_files(df_files, config_anamnese)
+
         for file_id, file_path, is_selected in df_files.itertuples(index=False):
             take = "t000"
             file_id = Path(file_path).stem.split(".")[0]
@@ -148,7 +172,7 @@ def rename_files_to_standard(files_dict, config_anamnese, config_general):
                     new_file_path = root_folder / new_name
 
                 shutil.copy(file_path, new_file_path)
-                add_logs(
+                add_logs_rename(
                     file_path,
                     new_file_path,
                 )
