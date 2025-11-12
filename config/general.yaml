@@ -10,7 +10,7 @@ camera:
   canon_side: "c004"
   
 paths:
-  flir: 'E:/flir/reconhecimento'
-  vue: 'E:/vue/reconhecimento'
-  canon_front: 'E:/canon_front/reconhecimento'
-  canon_side: 'E:/canon_side/reconhecimento'
+  flir: '/mnt/data/anamnese/raw/flir'
+  vue: '/mnt/data/anamnese/raw/vue'
+  canon_front: '/mnt/data/anamnese/raw/canon_front'
+  canon_side: '/mnt/data/anamnese/raw/canon_side'
